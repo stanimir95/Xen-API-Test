@@ -1,6 +1,6 @@
 import flask
 from flask import request, jsonify
-
+import subprocess
 
 app = flask.Flask(__name__)
 # app.config["DEBUG"] = True
@@ -45,7 +45,11 @@ def api_id():
     
     return jsonify(results)
 
-
+@app.route('/api/v1/resources/run', methods=['GET'])
+def call_script():
+    subprocess.call("./run.sh")
+    return '''<h1>TEST</h1>
+<p>TEST</p>'''
 
 if __name__ == "__main__":
     app.run()
