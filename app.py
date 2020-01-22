@@ -5,6 +5,7 @@ import subprocess
 app = flask.Flask(__name__)
 # app.config["DEBUG"] = True
 
+
 @app.errorhandler(404)
 def page_not_found(e):
     return "<h1>404</h1><p>The resource could not be found.</p>", 404
@@ -26,10 +27,11 @@ def api_id():
     test2 = query_parameters.get('test2')
 
     results = [
-    {'name': str(name),
-     'test1': int(test1),
-     'test2': int(test2),
-    }
+        {
+            'name': str(name),
+            'test1': int(test1),
+            'test2': int(test2),
+        }
     ]
    
     configuration_file = f'''    NAME: {name}
@@ -45,11 +47,13 @@ def api_id():
     
     return jsonify(results)
 
+
 @app.route('/api/v1/resources/run', methods=['GET'])
 def call_script():
     subprocess.call("./run.sh")
     return '''<h1>TEST</h1>
 <p>TEST</p>'''
+
 
 if __name__ == "__main__":
     app.run()
